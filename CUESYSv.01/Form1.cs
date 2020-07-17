@@ -3,6 +3,8 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.IO;
+using System.Data;
+
 
 namespace CUESYSv._01
 {
@@ -157,6 +159,34 @@ namespace CUESYSv._01
                     myDarkBg.Visible = true;
                     tbSearchFlight.Visible = true;
                     btSearchFlight.Visible = true;
+                    break;
+                case "edit flight":
+                    myDarkBg.Visible = true;
+                    lbEditFlight.Visible = true;
+                    lbFlightCustContact.Visible = true;
+                    lbFlightAirline.Visible = true;
+                    lbFlightOrigin.Visible = true;
+                    lbFlightDestination.Visible = true;
+                    lbFlightNumber.Visible = true;
+                    lbFlightSeat.Visible = true;
+                    lbFlightAdult.Visible = true;
+                    lbFlightChildren.Visible = true;
+                    lbFlightInfant.Visible = true;
+                    lbFlightBookingPaid.Visible = true;
+                    lbFlightBookDate.Visible = true;
+
+                    tbFlightCustContact.Visible = true;
+                    tbFlightAirline.Visible = true;
+                    tbFlightOrigin.Visible = true;
+                    tbFlightDestination.Visible = true;
+                    tbFlightNumber.Visible = true;
+                    tbFlightSeat.Visible = true;
+                    tbFlightAdult.Visible = true;
+                    tbFlightChildren.Visible = true;
+                    tbFlightInfant.Visible = true;
+                    cbFlightPaid.Visible = true;
+                    dtFlightBook.Visible = true;
+                    btnEditFlightSave.Visible = true;
                     break;
                 case "Exit":
                     Application.Exit();
@@ -519,6 +549,83 @@ namespace CUESYSv._01
         private void searchFlightToolStripMenuItem_Click(object sender, EventArgs e)
         {
             resetControls("search flight");
+        }
+
+        private string flightIDToBeUpdated;
+        private void dgRoomBookingsSummary_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgRoomBookingsSummary.Columns[0].Name == "flightID")
+            {
+                devLogs(Convert.ToString(dgRoomBookingsSummary.CurrentRow.Cells[0].Value));
+                int id = (int)dgRoomBookingsSummary.CurrentRow.Cells[0].Value;
+                string query = string.Format("SELECT * FROM `tblflights` WHERE `flightID` = {0}", id);
+
+
+                DataRow dr = mysqlConn.qry(query).Tables[0].Rows[0];
+
+                flightIDToBeUpdated = Convert.ToString(dr.Field<int>("flightID"));
+                tbFlightCustContact.Text = Convert.ToString(dr.Field<string>("custContact"));
+                tbFlightAirline.Text = Convert.ToString(dr.Field<string>("airLine"));
+                tbFlightOrigin.Text = Convert.ToString(dr.Field<string>("flightOrigin"));
+                tbFlightDestination.Text = Convert.ToString(dr.Field<string>("flightDestination"));
+                tbFlightNumber.Text = Convert.ToString(dr.Field<string>("flightNumber"));
+                tbFlightSeat.Text = Convert.ToString(dr.Field<string>("seatNumber"));
+                tbFlightAdult.Text = Convert.ToString(dr.Field<string>("adultCost"));
+                tbFlightChildren.Text = Convert.ToString(dr.Field<string>("childrenCost"));
+                tbFlightInfant.Text = Convert.ToString(dr.Field<string>("infantCost"));
+
+                bool paid;
+                if (Convert.ToString(dr.Field<string>("infantCost")) == "Y")
+                {
+                    paid = true;
+                }
+                else
+                {
+                    paid = false;
+                }
+
+                cbFlightPaid.Checked = paid;
+                dtFlightBook.ShowToday = true;
+
+                resetControls("edit flight");
+            }
+        }
+
+        private void btnEditFlightSave_Click(object sender, EventArgs e)
+        {
+            devLogs("update new flight");
+            string varDateTime = dtFlightBook.SelectionRange.Start.ToString("yyyy-MM-dd") + " " + tbTime.Text + ":00"; ;
+            string varPaid;
+            if (cbFlightPaid.Checked == true) { varPaid = "Y"; }
+            else { varPaid = "N"; }
+            if (mysqlConn.connOpen() == true)
+            {
+                mysqlConn.updateFlight(
+                flightIDToBeUpdated,
+                tbFlightCustContact.Text,
+                tbFlightAirline.Text,
+                tbFlightOrigin.Text,
+                tbFlightDestination.Text,
+                tbFlightNumber.Text,
+                tbFlightSeat.Text,
+                varDateTime,
+                tbFlightAdult.Text,
+                tbFlightChildren.Text,
+                tbFlightInfant.Text,
+                 varPaid);
+            }
+            tbFlightCustContact.Text =
+                tbFlightAirline.Text =
+                tbFlightOrigin.Text =
+                tbFlightDestination.Text =
+                tbFlightNumber.Text =
+                tbFlightSeat.Text =
+
+                tbFlightAdult.Text =
+                tbFlightChildren.Text =
+                tbFlightInfant.Text =
+                 "";
+            resetControls("view flights");
         }
 
         ///// EVENTS END ///////////////////////////////////////////////////////////

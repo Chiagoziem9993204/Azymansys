@@ -116,6 +116,29 @@ namespace CUESYSv._01
             comm.ExecuteNonQuery();
             connClose();
         }
+
+        public void updateFlight(string id, string custContact, string airline, string flightOrigin, string flightDestination, string flightNumber, string seatNumber, string bookingDateTime, string adultCost, string childrenCost, string infantCost, string bookingPaid)
+        {
+
+            MySqlCommand comm = conn.CreateCommand();
+            comm.CommandText = "UPDATE `tblflights` SET `custContact` = @custContact, `airLine` = @airline, `flightOrigin` = @flightOrigin, `flightDestination` = @flightDestination, `flightNumber` = @flightNumber, `seatNumber` = @seatNumber, `bookingDateTime` = @bookingDateTime, `adultCost` = @adultCost, `childrenCost` = @childrenCost, `infantCost` = @infantCost, `bookingPaid` = @bookingPaid WHERE `tblflights`.`flightID` = @id";
+            comm.Parameters.AddWithValue("@id", id);
+            comm.Parameters.AddWithValue("@custContact", custContact);
+            comm.Parameters.AddWithValue("@airline", airline);
+            comm.Parameters.AddWithValue("@flightOrigin", flightOrigin);
+            comm.Parameters.AddWithValue("@flightDestination", flightDestination);
+            comm.Parameters.AddWithValue("@flightNumber", flightNumber);
+            comm.Parameters.AddWithValue("@seatNumber", seatNumber);
+            comm.Parameters.AddWithValue("@bookingDateTime", bookingDateTime);
+            comm.Parameters.AddWithValue("@adultCost", adultCost);
+            comm.Parameters.AddWithValue("@childrenCost", childrenCost);
+            comm.Parameters.AddWithValue("@infantCost", infantCost);
+            comm.Parameters.AddWithValue("@bookingPaid", bookingPaid);
+            comm.ExecuteNonQuery();
+            connClose();
+
+
+        }
         public void deleteBooking(string id)
         {
             connOpen();

@@ -124,6 +124,8 @@
             this.btRoomB = new System.Windows.Forms.Button();
             this.tbSearchFlight = new System.Windows.Forms.TextBox();
             this.btSearchFlight = new System.Windows.Forms.Button();
+            this.lbEditFlight = new System.Windows.Forms.Label();
+            this.btnEditFlightSave = new System.Windows.Forms.Button();
             this.panClock.SuspendLayout();
             this.mainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgRoomBookingsSummary)).BeginInit();
@@ -334,21 +336,21 @@
             // bookToolStripMenuItem
             // 
             this.bookToolStripMenuItem.Name = "bookToolStripMenuItem";
-            this.bookToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.bookToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.bookToolStripMenuItem.Text = "Book Flight";
             this.bookToolStripMenuItem.Click += new System.EventHandler(this.bookToolStripMenuItem_Click);
             // 
             // viewFlightsToolStripMenuItem
             // 
             this.viewFlightsToolStripMenuItem.Name = "viewFlightsToolStripMenuItem";
-            this.viewFlightsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.viewFlightsToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.viewFlightsToolStripMenuItem.Text = "View Flights";
             this.viewFlightsToolStripMenuItem.Click += new System.EventHandler(this.viewFlightsToolStripMenuItem_Click);
             // 
             // searchFlightToolStripMenuItem
             // 
             this.searchFlightToolStripMenuItem.Name = "searchFlightToolStripMenuItem";
-            this.searchFlightToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.searchFlightToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.searchFlightToolStripMenuItem.Text = "Search Flight";
             this.searchFlightToolStripMenuItem.Click += new System.EventHandler(this.searchFlightToolStripMenuItem_Click);
             // 
@@ -645,6 +647,7 @@
             this.dgRoomBookingsSummary.Name = "dgRoomBookingsSummary";
             this.dgRoomBookingsSummary.Size = new System.Drawing.Size(776, 351);
             this.dgRoomBookingsSummary.TabIndex = 7;
+            this.dgRoomBookingsSummary.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgRoomBookingsSummary_CellContentClick);
             this.dgRoomBookingsSummary.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgRoomBookingsSummary_CellMouseDoubleClick);
             // 
             // lbBookFlight
@@ -1013,11 +1016,35 @@
             this.btSearchFlight.UseVisualStyleBackColor = true;
             this.btSearchFlight.Click += new System.EventHandler(this.btSearchFlight_Click);
             // 
+            // lbEditFlight
+            // 
+            this.lbEditFlight.AutoSize = true;
+            this.lbEditFlight.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lbEditFlight.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbEditFlight.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lbEditFlight.Location = new System.Drawing.Point(322, 115);
+            this.lbEditFlight.Name = "lbEditFlight";
+            this.lbEditFlight.Size = new System.Drawing.Size(170, 29);
+            this.lbEditFlight.TabIndex = 75;
+            this.lbEditFlight.Text = "EDIT FLIGHT";
+            // 
+            // btnEditFlightSave
+            // 
+            this.btnEditFlightSave.Location = new System.Drawing.Point(391, 487);
+            this.btnEditFlightSave.Name = "btnEditFlightSave";
+            this.btnEditFlightSave.Size = new System.Drawing.Size(75, 23);
+            this.btnEditFlightSave.TabIndex = 76;
+            this.btnEditFlightSave.Text = "Save Edit";
+            this.btnEditFlightSave.UseVisualStyleBackColor = true;
+            this.btnEditFlightSave.Click += new System.EventHandler(this.btnEditFlightSave_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 520);
+            this.Controls.Add(this.btnEditFlightSave);
+            this.Controls.Add(this.lbEditFlight);
             this.Controls.Add(this.btSearchFlight);
             this.Controls.Add(this.tbSearchFlight);
             this.Controls.Add(this.dtFlightBook);
@@ -1200,6 +1227,8 @@
         private System.Windows.Forms.MonthCalendar dtFlightBook;
         private System.Windows.Forms.TextBox tbSearchFlight;
         private System.Windows.Forms.Button btSearchFlight;
+        private System.Windows.Forms.Label lbEditFlight;
+        private System.Windows.Forms.Button btnEditFlightSave;
     }
 }
 
